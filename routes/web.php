@@ -71,6 +71,15 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['middleware' => 'level:1,2'], function () {
+        Route::get('/produk/data', [ProdukController::class, 'data'])->name('produk.data');
+        Route::post('/produk/cetak-barcode', [ProdukController::class, 'cetakBarcode'])->name('produk.cetak_barcode');
+        Route::resource('/produk', ProdukController::class);
+
+        Route::get('/penjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
+        Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
+        Route::get('/penjualan/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
+        Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
+
         Route::get('/transaksi/baru', [PenjualanController::class, 'create'])->name('transaksi.baru');
         Route::post('/transaksi/simpan', [PenjualanController::class, 'store'])->name('transaksi.simpan');
         Route::get('/transaksi/selesai', [PenjualanController::class, 'selesai'])->name('transaksi.selesai');
